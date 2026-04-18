@@ -22,8 +22,14 @@ jobs:
     permissions:
       contents: read
       packages: write
+    outputs:
+      image-name: ${{ steps.image-name.outputs.value }}
 
     steps:
+      - name: Convert image name to lowercase
+        id: image-name
+        run: echo "value=$(echo '${{ env.IMAGE_NAME }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -42,7 +48,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ steps.image-name.outputs.value }}
           tags: |
             type=ref,event=branch
             type=semver,pattern={{version}}
@@ -69,7 +75,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          image-ref: ${{ env.REGISTRY }}/${{ needs.build.outputs.image-name }}:latest
           format: 'sarif'
           output: 'trivy-results.sarif'
 
