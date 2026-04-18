@@ -4,6 +4,11 @@
 </center>
 <hr>
 
+## Supported notification mothods 
+
+✅ Push Notification (FCM)
+
+
 ## Get Start 🔥
 
 First rename `sample.env` to `.env` and then add your credintials. After that go to firebase and download your <b>firebase key</b> and rename downloaded file to `firebase-key.json` and move it to <b>root directory</b>. Finally install node modules using `npm install`  
