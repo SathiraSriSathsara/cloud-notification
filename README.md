@@ -31,3 +31,18 @@ For developmet run:
 ```
 npm run dev
 ```
+
+**Sample API Request Body**
+
+POST: `/notifications/send`
+
+```json
+{
+  "type": "push",
+  "payload": {
+    "token": "USER_FCM_TOKEN",
+    "title": "Notification title",
+    "body": "Notification body"
+  }
+}
+```
