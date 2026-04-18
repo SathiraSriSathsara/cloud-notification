@@ -41,7 +41,9 @@ services:
         condition: service_healthy
     volumes:
       - ./src:/app/src
-      - ./firebase-key.json:/app/firebase-key.json
+      # Uncomment the following line if you have firebase-key.json in your project root
+      # Note: Never commit firebase-key.json to version control
+      # - ./firebase-key.json:/app/firebase-key.json:ro
     networks:
       - notification-network
     restart: unless-stopped

@@ -23,7 +23,9 @@ COPY --from=builder /app/node_modules ./node_modules
 # Copy application files
 COPY package*.json ./
 COPY src ./src
-COPY firebase-key.json ./
+
+# Note: firebase-key.json should be mounted at runtime or injected via environment variable
+# See docker-compose.yml for volume mount configuration
 
 # Expose port
 EXPOSE 4000
