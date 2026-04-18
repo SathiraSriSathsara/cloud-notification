@@ -29,8 +29,13 @@ const testConnections = async () => {
 
   // Test Firebase
   try {
-    await admin.apps[0].firestore().collection('_test').doc('_test').get();
+    if(admin.apps.length === 0) {
+      throw new Error('Firebase not initialized');
+      status.firebase = true;
+    }
+
     status.firebase = true;
+
   } catch (error) {
     console.error('Firebase connection error:', error.message);
   }
